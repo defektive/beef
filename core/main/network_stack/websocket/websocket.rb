@@ -26,9 +26,10 @@ module BeEF
         def initialize
           secure = @@config.get('beef.http.websocket.secure')
 
+          cert_key = @@config.get('beef.http.https.key')
+          cert = @@config.get('beef.http.https.cert')
           # @note Start a WSS server socket
-          if (secure)
-            cert_key = @@config.get('beef.http.https.key')
+          if (secure && cert_key != nil && cert != nil)
             unless cert_key.start_with? '/'
               cert_key = File.expand_path cert_key, $root_dir
             end
@@ -37,7 +38,6 @@ module BeEF
               exit 1
             end
 
-            cert = @@config.get('beef.http.https.cert')
             unless cert.start_with? '/'
               cert = File.expand_path cert, $root_dir
             end

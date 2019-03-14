@@ -114,7 +114,7 @@ module BeEF
           @rack_app)
 
         # Configure SSL/TLS
-        return unless @configuration.get('beef.http.https.enable') == true
+        return unless @configuration.get('beef.http.https.enable') == true && @configuration.get('beef.http.https.key') != nil && @configuration.get('beef.http.https.cert') != nil
 
         openssl_version = OpenSSL::OPENSSL_VERSION
         if openssl_version =~ / 1\.0\.1([a-f])? /
